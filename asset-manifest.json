@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Minimal-List/static/css/main.096a95c8.css",
+    "main.js": "/Minimal-List/static/js/main.ce1f5692.js",
+    "index.html": "/Minimal-List/index.html",
+    "main.096a95c8.css.map": "/Minimal-List/static/css/main.096a95c8.css.map",
+    "main.ce1f5692.js.map": "/Minimal-List/static/js/main.ce1f5692.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.096a95c8.css",
+    "static/js/main.ce1f5692.js"
+  ]
+}
