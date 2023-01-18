@@ -107,3 +107,23 @@ body {
   align-items: center; /* center items vertically */
   justify-content: center; /* center items horizontally */
 }
+
+
+.delete-button {
+  margin-top: 20px;
+  background-color: #ff0000; /* red color */
+  color: #fff; /* white color */
+  padding: 5px 10px; /* button size */
+  border-radius: 5px; /* rounded corners */
+  border: none; /* no border */
+  font-size: 14px;
+  cursor: pointer; /* cursor changes when hovering */
+  transition: background-color 0.2s ease-in-out;
+}
+.delete-button:hover {
+  background-color: #cc0000; /* darker red color on hover */
+}
+
+.item-time{
+  margin-top: 10px;
+}

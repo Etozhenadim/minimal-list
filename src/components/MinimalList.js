@@ -43,6 +43,7 @@ function MinimalList() {
       title: title,
       text: text,
       rating: rating,
+      time: firebase.firestore.FieldValue.serverTimestamp(),
     };
     firestore.collection("listItems").add(newItem);
     setTitle("");
@@ -52,6 +53,10 @@ function MinimalList() {
 
   const handleClick = (itemId, newRating) => {
     firestore.collection("listItems").doc(itemId).update({ rating: newRating });
+  };
+
+  const handleDelete = (itemId) => {
+    firestore.collection("listItems").doc(itemId).delete();
   };
   return (
     <div className="list-container">
@@ -85,6 +90,7 @@ function MinimalList() {
         {listItems.map((item) => (
           <li key={item.id}>
             <h3 className="item-title">{item.title}</h3>
+
             <p className="item-text">{item.text}</p>
             <div className="star-rating">
               {Array.from({ length: 5 }, (_, i) => i + 1).map((index) => (
@@ -96,6 +102,15 @@ function MinimalList() {
                 />
               ))}
             </div>
+            <div className="item-time">
+              {item.time && item.time.toDate().toString()}
+            </div>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(item.id)}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
