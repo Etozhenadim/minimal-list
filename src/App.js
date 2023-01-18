@@ -1,5 +1,6 @@
 import "./App.css";
-import MinimalList from "./components/MinimalList";
+ import MinimalList from "./components/MinimalList";
+
 
 function App() {
   return (

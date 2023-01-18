@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpuya2tMS3F7ghjqeO5oMUDsH8RGYQu5o",
@@ -20,7 +22,7 @@ function MinimalList() {
   const [listItems, setListItems] = useState([]);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     const unsubscribe = firestore
@@ -48,6 +50,9 @@ function MinimalList() {
     setRating(1);
   };
 
+  const handleClick = (itemId, newRating) => {
+    firestore.collection("listItems").doc(itemId).update({ rating: newRating });
+  };
   return (
     <div className="list-container">
       <form onSubmit={handleSubmit}>
@@ -61,26 +66,14 @@ function MinimalList() {
           />
         </label>
         <br />
+
         <label>
           Text:
-          <input
+          <textarea
             className="input-field"
-            type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-        </label>
-        <br />
-        <br />
-        <label>
-          Rating:
-          <select value={rating} onChange={(e) => setRating(e.target.value)}>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-          </select>
         </label>
         <br />
         <button className="submit-button" type="submit">
@@ -93,7 +86,16 @@ function MinimalList() {
           <li key={item.id}>
             <h3 className="item-title">{item.title}</h3>
             <p className="item-text">{item.text}</p>
-            <p>Rating: {item.rating}</p>
+            <div className="star-rating">
+              {Array.from({ length: 5 }, (_, i) => i + 1).map((index) => (
+                <FontAwesomeIcon
+                  key={index}
+                  icon={faStar}
+                  className={`${index <= item.rating ? "active" : ""}`}
+                  onClick={() => handleClick(item.id, index)}
+                />
+              ))}
+            </div>
           </li>
         ))}
       </ul>
